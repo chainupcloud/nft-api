@@ -1,0 +1,867 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/nft/{chain}/{token}/getAssetsTransfer": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transfer API"
+                ],
+                "summary": "The Transfers API allows you to easily fetch historical transactions 查询NFT交易信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "queryBody",
+                        "name": "queryBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/forms.GetAssetsTransfersForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "Object"
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getContractMetadata": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "NFT Metadata Access"
+                ],
+                "summary": "Gets the metadata associated with a given Contract. 查询指定Contract详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "contractAddress",
+                        "name": "contractAddress",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/models.NFTContract"
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getContractMetadataBatch": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "NFT Metadata Access"
+                ],
+                "summary": "Gets the metadata associated with a given Contract. 查询指定Contract详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "contractAddresses",
+                        "name": "contractAddresses",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/forms.GetContractMetadataBatchForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.NFTContract"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getContractsForOwner": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ownership \u0026 Token Gating"
+                ],
+                "summary": "查询owner是否存在指定collection",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "合约地址",
+                        "name": "owner",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "pageKey,如果上次查询游标未滑至底端，传入上次查询的pageKey即可完成分页",
+                        "name": "pageKey",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "当前页最大条目,默认是100，最大为100",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/models.NFTCollection"
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getNFTMetadata": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "NFT Metadata Access"
+                ],
+                "summary": "Gets the metadata associated with a given NFT. 查询指定NFT详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "合约地址",
+                        "name": "contractAddress",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "tokenType: ERC721 or ERC1155",
+                        "name": "tokenId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/models.NFTAssetMetadata"
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getNFTMetadataBatch": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "NFT Metadata Access"
+                ],
+                "summary": "Gets the metadata associated with a given NFT. 查询指定NFT详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "tokens",
+                        "name": "tokens",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/forms.GetNFTMetadataBatchForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.NFTAssetMetadata"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getNFTsForOwner": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ownership \u0026 Token Gating"
+                ],
+                "summary": "查询owner的NFT列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "钱包地址",
+                        "name": "owner",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "合约地址",
+                        "name": "ContractAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "pageKey,如果上次查询游标未滑至底端，传入上次查询的pageKey即可完成分页",
+                        "name": "pageKey",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "当前页最大条目,默认是100，最大为100",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.OwnerNFT"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getOwnersForContract": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ownership \u0026 Token Gating"
+                ],
+                "summary": "查询collection的持有者Owners",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "合约地址",
+                        "name": "contractAddress",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "tokenId",
+                        "name": "tokenId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/getOwnersForNFT": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ownership \u0026 Token Gating"
+                ],
+                "summary": "查询NFT所属Owners",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "合约地址",
+                        "name": "contractAddress",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "tokenId",
+                        "name": "tokenId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetOwnersForNFTResp"
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/isHolderOfContract": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ownership \u0026 Token Gating"
+                ],
+                "summary": "查询owner是否存在指定collection",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "合约地址",
+                        "name": "contractAddress",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "钱包地址",
+                        "name": "wallet",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/models.IsHolderOfContractResp"
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/nft/{chain}/{token}/searchContractMetadata": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "NFT Metadata Access"
+                ],
+                "summary": "Gets the metadata associated with a given Contract. 查询指定Contract详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链",
+                        "name": "chain",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "query",
+                        "name": "query",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.NFTContract"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "错误",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "forms.GetAssetsTransfersForm": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "description": "ERC721 ERC1155",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "contractAddresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "fromAddress": {
+                    "type": "string"
+                },
+                "fromBlock": {
+                    "type": "integer"
+                },
+                "maxCount": {
+                    "description": "Max hex string number of results to return per call. Defaults to 0x3e8 (1000).",
+                    "type": "integer"
+                },
+                "order": {
+                    "description": "aesc desc, 默认按照交易的顺序倒排，越新越靠前",
+                    "type": "string"
+                },
+                "pageKey": {
+                    "type": "string"
+                },
+                "toAddress": {
+                    "type": "string"
+                },
+                "toBlock": {
+                    "type": "integer"
+                }
+            }
+        },
+        "forms.GetContractMetadataBatchForm": {
+            "type": "object",
+            "properties": {
+                "contractAddresses": {
+                    "description": "合约地址",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "forms.GetNFTMetadata": {
+            "type": "object",
+            "properties": {
+                "contractAddress": {
+                    "description": "合约地址",
+                    "type": "string"
+                },
+                "tokenId": {
+                    "description": "tokenId",
+                    "type": "integer"
+                },
+                "tokenType": {
+                    "description": "NFT类型",
+                    "type": "string"
+                }
+            }
+        },
+        "forms.GetNFTMetadataBatchForm": {
+            "type": "object",
+            "properties": {
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/forms.GetNFTMetadata"
+                    }
+                }
+            }
+        },
+        "models.ErrResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetOwnersForNFTResp": {
+            "type": "object",
+            "properties": {
+                "owners": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.IsHolderOfContractResp": {
+            "type": "object",
+            "properties": {
+                "isHolderOfContract": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.Metadata": {
+            "type": "object",
+            "properties": {
+                "attributes": {},
+                "description": {
+                    "type": "string"
+                },
+                "media": {
+                    "type": "string"
+                },
+                "media_external": {
+                    "type": "string"
+                },
+                "media_type": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.NFTAssetMetadata": {
+            "type": "object",
+            "properties": {
+                "contract": {
+                    "$ref": "#/definitions/models.NFTCollection"
+                },
+                "contract_address": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/models.Metadata"
+                },
+                "metadata_json": {
+                    "type": "string"
+                },
+                "token_id": {
+                    "type": "string"
+                },
+                "token_type": {
+                    "type": "string"
+                },
+                "token_uri": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.NFTCollection": {
+            "type": "object",
+            "properties": {
+                "contract_address": {
+                    "type": "string"
+                },
+                "deploy_block_number": {
+                    "type": "integer"
+                },
+                "deployer": {
+                    "description": "部署者地址",
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "symbol": {
+                    "type": "string"
+                },
+                "token_type": {
+                    "type": "string"
+                },
+                "total_supply": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.NFTContract": {
+            "type": "object",
+            "properties": {
+                "contract_address": {
+                    "type": "string"
+                },
+                "deploy_block_number": {
+                    "type": "integer"
+                },
+                "deployer": {
+                    "description": "部署者地址",
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "symbol": {
+                    "type": "string"
+                },
+                "token_type": {
+                    "type": "string"
+                },
+                "total_supply": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.OwnerNFT": {
+            "type": "object",
+            "properties": {
+                "contract": {
+                    "$ref": "#/definitions/models.NFTCollection"
+                },
+                "contract_address": {
+                    "type": "string"
+                },
+                "last_metadata_sync_time": {
+                    "type": "integer"
+                },
+                "last_token_uri_sync_time": {
+                    "type": "integer"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/models.Metadata"
+                },
+                "metadata_json": {
+                    "type": "string"
+                },
+                "modify_time": {
+                    "type": "integer"
+                },
+                "owner_address": {
+                    "type": "string"
+                },
+                "token_id": {
+                    "type": "string"
+                },
+                "token_type": {
+                    "type": "string"
+                },
+                "token_uri": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
