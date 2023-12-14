@@ -4,7 +4,7 @@
         "contact": {}
     },
     "paths": {
-        "/nft/{chain}/{token}/getAssetsTransfer": {
+        "/{chain}/{token}/v1/getAssetsTransfer": {
             "get": {
                 "produces": [
                     "application/json"
@@ -42,7 +42,7 @@
                     "200": {
                         "description": "成功",
                         "schema": {
-                            "type": "Object"
+                            "$ref": "#/definitions/models.TransferResponse"
                         }
                     },
                     "500": {
@@ -54,7 +54,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getContractMetadata": {
+        "/{chain}/{token}/v1/getContractMetadata": {
             "get": {
                 "produces": [
                     "application/json"
@@ -102,7 +102,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getContractMetadataBatch": {
+        "/{chain}/{token}/v1/getContractMetadataBatch": {
             "post": {
                 "produces": [
                     "application/json"
@@ -155,7 +155,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getContractsForOwner": {
+        "/{chain}/{token}/v1/getContractsForOwner": {
             "get": {
                 "produces": [
                     "application/json"
@@ -215,7 +215,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getNFTMetadata": {
+        "/{chain}/{token}/v1/getNFTMetadata": {
             "get": {
                 "produces": [
                     "application/json"
@@ -269,7 +269,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getNFTMetadataBatch": {
+        "/{chain}/{token}/v1/getNFTMetadataBatch": {
             "post": {
                 "produces": [
                     "application/json"
@@ -322,7 +322,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getNFTsForOwner": {
+        "/{chain}/{token}/v1/getNFTsForOwner": {
             "get": {
                 "produces": [
                     "application/json"
@@ -376,10 +376,7 @@
                     "200": {
                         "description": "成功",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.OwnerNFT"
-                            }
+                            "$ref": "#/definitions/models.GetNFTsForOnwerResponse"
                         }
                     },
                     "500": {
@@ -391,7 +388,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getOwnersForContract": {
+        "/{chain}/{token}/v1/getOwnersForContract": {
             "get": {
                 "produces": [
                     "application/json"
@@ -434,10 +431,7 @@
                     "200": {
                         "description": "成功",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/models.Owner"
                         }
                     },
                     "500": {
@@ -449,7 +443,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/getOwnersForNFT": {
+        "/{chain}/{token}/v1/getOwnersForNFT": {
             "get": {
                 "produces": [
                     "application/json"
@@ -492,7 +486,7 @@
                     "200": {
                         "description": "成功",
                         "schema": {
-                            "$ref": "#/definitions/models.GetOwnersForNFTResp"
+                            "$ref": "#/definitions/models.Owner"
                         }
                     },
                     "500": {
@@ -504,7 +498,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/isHolderOfContract": {
+        "/{chain}/{token}/v1/isHolderOfContract": {
             "get": {
                 "produces": [
                     "application/json"
@@ -559,7 +553,7 @@
                 }
             }
         },
-        "/nft/{chain}/{token}/searchContractMetadata": {
+        "/{chain}/{token}/v1/searchContractMetadata": {
             "get": {
                 "produces": [
                     "application/json"
@@ -622,19 +616,19 @@
                         "type": "string"
                     }
                 },
-                "contractAddresses": {
+                "contract_addresses": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     }
                 },
-                "fromAddress": {
+                "from_address json:": {
                     "type": "string"
                 },
-                "fromBlock": {
+                "from_block": {
                     "type": "integer"
                 },
-                "maxCount": {
+                "max_count": {
                     "description": "Max hex string number of results to return per call. Defaults to 0x3e8 (1000).",
                     "type": "integer"
                 },
@@ -642,13 +636,13 @@
                     "description": "aesc desc, 默认按照交易的顺序倒排，越新越靠前",
                     "type": "string"
                 },
-                "pageKey": {
+                "page_key": {
                     "type": "string"
                 },
-                "toAddress": {
+                "to_address": {
                     "type": "string"
                 },
-                "toBlock": {
+                "to_block": {
                     "type": "integer"
                 }
             }
@@ -656,7 +650,7 @@
         "forms.GetContractMetadataBatchForm": {
             "type": "object",
             "properties": {
-                "contractAddresses": {
+                "contract_addresses": {
                     "description": "合约地址",
                     "type": "array",
                     "items": {
@@ -668,15 +662,15 @@
         "forms.GetNFTMetadata": {
             "type": "object",
             "properties": {
-                "contractAddress": {
+                "contract_address": {
                     "description": "合约地址",
                     "type": "string"
                 },
-                "tokenId": {
+                "token_id": {
                     "description": "tokenId",
                     "type": "integer"
                 },
-                "tokenType": {
+                "token_type": {
                     "description": "NFT类型",
                     "type": "string"
                 }
@@ -705,14 +699,18 @@
                 }
             }
         },
-        "models.GetOwnersForNFTResp": {
+        "models.GetNFTsForOnwerResponse": {
             "type": "object",
             "properties": {
-                "owners": {
+                "owner_nfts": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "$ref": "#/definitions/models.OwnerNFT"
                     }
+                },
+                "page_key": {},
+                "total_count": {
+                    "type": "integer"
                 }
             }
         },
@@ -825,6 +823,17 @@
                 }
             }
         },
+        "models.Owner": {
+            "type": "object",
+            "properties": {
+                "owners": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Owners"
+                    }
+                }
+            }
+        },
         "models.OwnerNFT": {
             "type": "object",
             "properties": {
@@ -849,8 +858,8 @@
                 "modify_time": {
                     "type": "integer"
                 },
-                "owner_address": {
-                    "type": "string"
+                "owner": {
+                    "$ref": "#/definitions/models.Owner"
                 },
                 "token_id": {
                     "type": "string"
@@ -860,6 +869,88 @@
                 },
                 "token_uri": {
                     "type": "string"
+                }
+            }
+        },
+        "models.Owners": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "owner_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Transfer": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "block_hash": {
+                    "type": "string"
+                },
+                "block_number": {
+                    "type": "integer"
+                },
+                "block_timestamp": {
+                    "type": "integer"
+                },
+                "contract_address": {
+                    "type": "string"
+                },
+                "event_type": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "log_index": {
+                    "type": "integer"
+                },
+                "receive": {
+                    "type": "string"
+                },
+                "send": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "token_id": {
+                    "type": "string"
+                },
+                "token_index": {
+                    "type": "integer"
+                },
+                "token_type": {
+                    "type": "string"
+                },
+                "tx_hash": {
+                    "type": "string"
+                },
+                "tx_index": {
+                    "type": "integer"
+                },
+                "tx_timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.TransferResponse": {
+            "type": "object",
+            "properties": {
+                "pageKey": {},
+                "totalCount": {
+                    "type": "integer"
+                },
+                "transfers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Transfer"
+                    }
                 }
             }
         }
