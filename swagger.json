@@ -4,8 +4,8 @@
         "contact": {}
     },
     "paths": {
-        "/{chain}/{token}/v1/getAssetsTransfer": {
-            "get": {
+        "/{chain}/{api_token}/v1/getAssetsTransfer": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
@@ -24,13 +24,13 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "queryBody",
-                        "name": "queryBody",
+                        "description": "query_body",
+                        "name": "query_body",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -54,7 +54,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getContractMetadata": {
+        "/{chain}/{api_token}/v1/getContractMetadata": {
             "get": {
                 "produces": [
                     "application/json"
@@ -74,14 +74,14 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "contractAddress",
-                        "name": "contractAddress",
+                        "description": "contract_address",
+                        "name": "contract_address",
                         "in": "query",
                         "required": true
                     }
@@ -102,7 +102,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getContractMetadataBatch": {
+        "/{chain}/{api_token}/v1/getContractMetadataBatch": {
             "post": {
                 "produces": [
                     "application/json"
@@ -122,13 +122,13 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "contractAddresses",
-                        "name": "contractAddresses",
+                        "description": "body",
+                        "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -155,7 +155,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getContractsForOwner": {
+        "/{chain}/{api_token}/v1/getContractsForOwner": {
             "get": {
                 "produces": [
                     "application/json"
@@ -175,27 +175,27 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "合约地址",
+                        "description": "用户地址/拥有者地址",
                         "name": "owner",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "pageKey,如果上次查询游标未滑至底端，传入上次查询的pageKey即可完成分页",
-                        "name": "pageKey",
+                        "description": "page_key,如果上次查询游标未滑至底端，传入上次查询的page_key即可完成分页",
+                        "name": "page_key",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "当前页最大条目,默认是100，最大为100",
-                        "name": "pageSize",
+                        "name": "page_size",
                         "in": "query"
                     }
                 ],
@@ -215,7 +215,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getNFTMetadata": {
+        "/{chain}/{api_token}/v1/getNFTMetadata": {
             "get": {
                 "produces": [
                     "application/json"
@@ -235,21 +235,21 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "合约地址",
-                        "name": "contractAddress",
+                        "name": "contract_address",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "integer",
-                        "description": "tokenType: ERC721 or ERC1155",
-                        "name": "tokenId",
+                        "description": "token id",
+                        "name": "token_id",
                         "in": "query"
                     }
                 ],
@@ -269,7 +269,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getNFTMetadataBatch": {
+        "/{chain}/{api_token}/v1/getNFTMetadataBatch": {
             "post": {
                 "produces": [
                     "application/json"
@@ -289,7 +289,7 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
@@ -322,7 +322,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getNFTsForOwner": {
+        "/{chain}/{api_token}/v1/getNFTsForOwner": {
             "get": {
                 "produces": [
                     "application/json"
@@ -342,7 +342,7 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
@@ -356,19 +356,19 @@
                     {
                         "type": "string",
                         "description": "合约地址",
-                        "name": "ContractAddress",
+                        "name": "contract_address",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "pageKey,如果上次查询游标未滑至底端，传入上次查询的pageKey即可完成分页",
-                        "name": "pageKey",
+                        "name": "page_key",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "当前页最大条目,默认是100，最大为100",
-                        "name": "pageSize",
+                        "name": "page_size",
                         "in": "query"
                     }
                 ],
@@ -388,7 +388,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getOwnersForContract": {
+        "/{chain}/{api_token}/v1/getOwnersForContract": {
             "get": {
                 "produces": [
                     "application/json"
@@ -408,21 +408,21 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "合约地址",
-                        "name": "contractAddress",
+                        "name": "contract_address",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "integer",
-                        "description": "tokenId",
-                        "name": "tokenId",
+                        "description": "token_id",
+                        "name": "token_id",
                         "in": "query",
                         "required": true
                     }
@@ -443,7 +443,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/getOwnersForNFT": {
+        "/{chain}/{api_token}/v1/getOwnersForNFT": {
             "get": {
                 "produces": [
                     "application/json"
@@ -463,21 +463,21 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "合约地址",
-                        "name": "contractAddress",
+                        "name": "contract_address",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "integer",
-                        "description": "tokenId",
-                        "name": "tokenId",
+                        "description": "token_id",
+                        "name": "token_id",
                         "in": "query",
                         "required": true
                     }
@@ -498,7 +498,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/isHolderOfContract": {
+        "/{chain}/{api_token}/v1/isHolderOfContract": {
             "get": {
                 "produces": [
                     "application/json"
@@ -518,14 +518,14 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "合约地址",
-                        "name": "contractAddress",
+                        "name": "contract_address",
                         "in": "query",
                         "required": true
                     },
@@ -553,7 +553,7 @@
                 }
             }
         },
-        "/{chain}/{token}/v1/searchContractMetadata": {
+        "/{chain}/{api_token}/v1/searchContractMetadata": {
             "get": {
                 "produces": [
                     "application/json"
@@ -573,7 +573,7 @@
                     {
                         "type": "string",
                         "description": "token",
-                        "name": "token",
+                        "name": "api_token",
                         "in": "path",
                         "required": true
                     },
@@ -622,7 +622,7 @@
                         "type": "string"
                     }
                 },
-                "from_address json:": {
+                "from_address": {
                     "type": "string"
                 },
                 "from_block": {
