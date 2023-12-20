@@ -163,7 +163,7 @@
                 "tags": [
                     "Ownership \u0026 Token Gating"
                 ],
-                "summary": "查询owner是否存在指定collection",
+                "summary": "Query the NFT contracts owned by the owner. 查询owner所拥有的NFT所属合约",
                 "parameters": [
                     {
                         "type": "string",
@@ -294,8 +294,8 @@
                         "required": true
                     },
                     {
-                        "description": "tokens",
-                        "name": "tokens",
+                        "description": "requestBody",
+                        "name": "requestBody",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -330,7 +330,7 @@
                 "tags": [
                     "Ownership \u0026 Token Gating"
                 ],
-                "summary": "查询owner的NFT列表",
+                "summary": "Query the NFT list of the owner. 查询owner的NFT列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -354,9 +354,9 @@
                         "required": true
                     },
                     {
-                        "type": "string",
+                        "type": "array",
                         "description": "合约地址",
-                        "name": "contract_address",
+                        "name": "contract_addresses",
                         "in": "query"
                     },
                     {
@@ -396,7 +396,7 @@
                 "tags": [
                     "Ownership \u0026 Token Gating"
                 ],
-                "summary": "查询collection的持有者Owners",
+                "summary": "Query the Owner of Contract Holders. 查询Contract的持有者Owners",
                 "parameters": [
                     {
                         "type": "string",
@@ -416,13 +416,6 @@
                         "type": "string",
                         "description": "合约地址",
                         "name": "contract_address",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "token_id",
-                        "name": "token_id",
                         "in": "query",
                         "required": true
                     }
@@ -451,7 +444,7 @@
                 "tags": [
                     "Ownership \u0026 Token Gating"
                 ],
-                "summary": "查询NFT所属Owners",
+                "summary": "Query NFT Owners. 查询NFT所属Owners",
                 "parameters": [
                     {
                         "type": "string",
@@ -506,7 +499,7 @@
                 "tags": [
                     "Ownership \u0026 Token Gating"
                 ],
-                "summary": "查询owner是否存在指定collection",
+                "summary": "Check if the owner has a specified contract. 查询owner是否存在指定Contract.",
                 "parameters": [
                     {
                         "type": "string",
@@ -717,7 +710,7 @@
         "models.IsHolderOfContractResp": {
             "type": "object",
             "properties": {
-                "isHolderOfContract": {
+                "isholderOfContract": {
                     "type": "boolean"
                 }
             }
